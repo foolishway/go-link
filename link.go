@@ -93,3 +93,50 @@ func (l *Link) GetValue(index int32) interface{} {
 	}
 	return n.Value
 }
+
+//Splice delete or replace node of link
+func (l *Link) Splice(start int32, deleteCount int32, items ...interface{}) (removed []interface{}) {
+	if l.GetLen() <= start {
+		if len(items) > 0 {
+			for _, item := range items {
+				l.Push(item)
+			}
+		}
+		return nil
+	}
+
+	newLink := &Link{}
+
+	n := start
+	var i int32
+
+	for i = 0; i < n; i++ {
+		newLink.Push(l.GetValue(int32(i)))
+	}
+
+	if len(items) > 0 {
+		for _, item := range items {
+			newLink.Push(item)
+		}
+	}
+	// fmt.Println(newLink.GetValue(0))
+	// count := start
+	// for count > 0 {
+	// 	newLink.Push(n)
+	// 	n = n.Next
+	// 	count--
+	// }
+
+	// n = l.start
+	count := start + deleteCount
+	for i = 0; i < count; i++ {
+		newLink.Push(l.GetValue(int32(i)))
+	}
+
+	//get removed node and return it
+	for i = 0; i < l.GetLen()-start+deleteCount; i++ {
+		removed = append(removed, l.GetValue(int32(i)))
+	}
+	l.start = newLink.start
+	return
+}

@@ -138,7 +138,6 @@ func TestLink(t *testing.T) {
 	})
 
 	//test getValue
-
 	t.Run("testGetValue", func(t *testing.T) {
 		var l *Link = &Link{}
 		for i := 0; i < 100; i++ {
@@ -151,6 +150,25 @@ func TestLink(t *testing.T) {
 			if index != value {
 				t.Fatalf("Getvalue error expect %d, but %d.", index, value)
 			}
+		}
+	})
+
+	//test splice
+	t.Run("testSplice", func(t *testing.T) {
+		l := &Link{}
+		l.Push(1)
+		l.Push(2)
+		l.Push(3)
+		l.Push(4)
+		l.Splice(5, 0, 5, 6)
+		v := l.GetLen()
+		if v != 6 {
+			t.Fatalf("Splice error expect length 6 but %d", v)
+		}
+		l.Splice(0, 0, 7)
+		v = l.GetLen()
+		if v != 7 {
+			t.Fatalf("Splice error expect length 7 but %d", v)
 		}
 	})
 }
