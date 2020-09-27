@@ -1,33 +1,46 @@
 package link
 
-type link struct {
-	start *node
-}
-type node struct {
-	value interface{}
-	next  *node
+//Link impolement Link structure in go
+type Link struct {
+	start *Node
 }
 
-func (l *link) push(pl *node) {
+//Node is the node in Link structure
+type Node struct {
+	Value interface{}
+	Next  *Node
+}
+
+//Push push the node to the tail of link
+func (l *Link) Push(pl *Node) {
 	if l.start == nil {
 		l.start = pl
 	} else {
 		n := l.start
-		for n.next != nil {
-			n = n.next
+		for n.Next != nil {
+			n = n.Next
 		}
-		n.next = pl
+		n.Next = pl
 	}
 }
 
-// func (l *link) pop() *node {
-// 	var n *node = l.start
-// 	var p *node
-// 	for n.next != nil {
-// 		p = n
-// 		n = n.next
-// 	}
-// 	rn := n
-// 	p = nil
-// 	return rn
-// }
+//Pop remove the last node of link and return the node
+func (l *Link) Pop() *Node {
+	n := l.start
+	if n == nil {
+		return nil
+	}
+
+	if n.Next == nil {
+		l.start = nil
+		return n
+	}
+
+	for n.Next.Next != nil {
+		n = n.Next
+	}
+
+	temNode := n.Next
+	n.Next = nil
+	return temNode
+}
