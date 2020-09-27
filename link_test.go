@@ -2,6 +2,7 @@ package link
 
 import (
 	"log"
+	"math/rand"
 	"testing"
 )
 
@@ -133,6 +134,23 @@ func TestLink(t *testing.T) {
 		}
 		if l.GetLen() != 0 {
 			t.Fatalf("After clear the length expect 0, but %d", l.GetLen())
+		}
+	})
+
+	//test getValue
+
+	t.Run("testGetValue", func(t *testing.T) {
+		var l *Link = &Link{}
+		for i := 0; i < 100; i++ {
+			l.Push(i)
+		}
+
+		for i := 0; i < 100; i++ {
+			index := rand.Intn(100)
+			value, _ := l.GetValue(int32(index)).(int)
+			if index != value {
+				t.Fatalf("Getvalue error expect %d, but %d.", index, value)
+			}
 		}
 	})
 }

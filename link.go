@@ -62,10 +62,10 @@ func (l *Link) Shift() interface{} {
 //GetLen return the length of link
 func (l *Link) GetLen() int32 {
 	var length int32
-	p := l.start
-	for p != nil {
+	n := l.start
+	for n != nil {
 		length++
-		p = p.Next
+		n = n.Next
 	}
 	return length
 }
@@ -77,4 +77,19 @@ func (l *Link) Clear() int32 {
 	l.start = nil
 
 	return length
+}
+
+//GetValue return the value of link at indexTh
+func (l *Link) GetValue(index int32) interface{} {
+	if index >= l.GetLen() {
+		return nil
+	}
+
+	var count int32
+	n := l.start
+	for index != count {
+		count++
+		n = n.Next
+	}
+	return n.Value
 }
