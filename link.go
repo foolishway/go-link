@@ -25,7 +25,7 @@ func (l *Link) Push(value interface{}) {
 	}
 }
 
-//Pop remove the last node of link and return the node
+//Pop remove the last node of link and return it
 func (l *Link) Pop() interface{} {
 	n := l.start
 	if n == nil {
@@ -44,4 +44,37 @@ func (l *Link) Pop() interface{} {
 	temNode := n.Next
 	n.Next = nil
 	return temNode.Value
+}
+
+//Shift remove the first node of link and return it
+func (l *Link) Shift() interface{} {
+	if l.start == nil {
+		return nil
+	}
+
+	temNode := l.start
+
+	l.start = l.start.Next
+
+	return temNode.Value
+}
+
+//GetLen return the length of link
+func (l *Link) GetLen() int32 {
+	var length int32
+	p := l.start
+	for p != nil {
+		length++
+		p = p.Next
+	}
+	return length
+}
+
+//Clear clear the node of link and return the length
+func (l *Link) Clear() int32 {
+	length := l.GetLen()
+
+	l.start = nil
+
+	return length
 }
