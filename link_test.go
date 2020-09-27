@@ -8,21 +8,21 @@ func TestLink(t *testing.T) {
 	//test Push
 	t.Run("testPush", func(t *testing.T) {
 		var l *Link = &Link{}
-		l.Push(&Node{Value: "1"})
+		l.Push("1")
 		if Value, ok := l.start.Value.(string); !ok {
 			t.Fatal("Type error, want string but not.")
 			if Value != "1" {
 				t.Fatalf("Value error, want %q but %s", "1", Value)
 			}
 		}
-		l.Push(&Node{Value: 2})
+		l.Push(2)
 		if Value, ok := l.start.Next.Value.(int); !ok {
 			t.Fatal("Type error, want int but not.")
 			if Value != 2 {
 				t.Fatalf("Value error, want %d but %d", 2, Value)
 			}
 		}
-		l.Push(&Node{Value: true})
+		l.Push(true)
 		if Value, ok := l.start.Next.Next.Value.(bool); !ok {
 			t.Fatal("Type error, want boolean but not.")
 			if Value != true {
@@ -34,67 +34,39 @@ func TestLink(t *testing.T) {
 	//test pop
 	t.Run("testPop", func(t *testing.T) {
 		var l *Link = &Link{}
-		l.Push(&Node{Value: 1})
-		l.Push(&Node{Value: true})
-		l.Push(&Node{Value: 3})
-		l.Push(&Node{Value: "4"})
+		l.Push(1)
+		l.Push(true)
+		l.Push(3)
+		l.Push("4")
 
 		//string
-		node := l.Pop()
-		if node == nil {
-			t.Fatal("Node should not be nil, but nil.")
-		}
-		if _, ok := node.Value.(string); !ok {
-			t.Fatal("Pop type error, expect string ,but not.")
-
-		}
-		if value, _ := node.Value.(string); value != "4" {
-			t.Fatalf("Pop value error, expect %q but %s", "4", value)
+		value := l.Pop()
+		if v, _ := value.(string); v != "4" {
+			t.Fatalf("Pop value error, expect %q but %s", "4", v)
 		}
 
 		//int
-		node = l.Pop()
-		if node == nil {
-			t.Fatal("Node should not be nil, but nil.")
-		}
-		if _, ok := node.Value.(int); !ok {
-			t.Fatal("Pop type error, expect int ,but not.")
-
-		}
-		if value, _ := node.Value.(int); value != 3 {
-			t.Fatalf("Pop value error, expect %d but %d", 3, value)
+		value = l.Pop()
+		if v, _ := value.(int); v != 3 {
+			t.Fatalf("Pop value error, expect %d but %d", 3, v)
 		}
 
 		//boolean
-		node = l.Pop()
-		if node == nil {
-			t.Fatal("Node should not be nil, but nil.")
-		}
-		if _, ok := node.Value.(bool); !ok {
-			t.Fatal("Pop type error, expect int ,but not.")
-
-		}
-		if value, _ := node.Value.(bool); value != true {
-			t.Fatalf("Pop value error, expect %v but %v", true, value)
+		value = l.Pop()
+		if v, _ := value.(bool); v != true {
+			t.Fatalf("Pop value error, expect %v but %v", true, v)
 		}
 
 		//int
-		node = l.Pop()
-		if node == nil {
-			t.Fatal("Node should not be nil, but nil.")
-		}
-		if _, ok := node.Value.(int); !ok {
-			t.Fatal("Pop type error, expect int ,but not.")
-
-		}
-		if value, _ := node.Value.(int); value != 1 {
-			t.Fatalf("Pop value error, expect %d but %d", 1, value)
+		value = l.Pop()
+		if v, _ := value.(int); v != 1 {
+			t.Fatalf("Pop value error, expect %d but %d", 1, v)
 		}
 
 		//nil
-		node = l.Pop()
-		if node != nil {
-			t.Fatal("Node expect nil ,but not.")
+		value = l.Pop()
+		if value != nil {
+			t.Fatalf("Node expect nil ,but %v.", value)
 		}
 	})
 }

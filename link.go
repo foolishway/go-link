@@ -12,20 +12,21 @@ type Node struct {
 }
 
 //Push push the node to the tail of link
-func (l *Link) Push(pl *Node) {
+func (l *Link) Push(value interface{}) {
+	node := &Node{Value: value}
 	if l.start == nil {
-		l.start = pl
+		l.start = node
 	} else {
 		n := l.start
 		for n.Next != nil {
 			n = n.Next
 		}
-		n.Next = pl
+		n.Next = node
 	}
 }
 
 //Pop remove the last node of link and return the node
-func (l *Link) Pop() *Node {
+func (l *Link) Pop() interface{} {
 	n := l.start
 	if n == nil {
 		return nil
@@ -33,7 +34,7 @@ func (l *Link) Pop() *Node {
 
 	if n.Next == nil {
 		l.start = nil
-		return n
+		return n.Value
 	}
 
 	for n.Next.Next != nil {
@@ -42,5 +43,5 @@ func (l *Link) Pop() *Node {
 
 	temNode := n.Next
 	n.Next = nil
-	return temNode
+	return temNode.Value
 }
