@@ -3,6 +3,7 @@ package link
 import (
 	"log"
 	"math/rand"
+	"reflect"
 	"testing"
 )
 
@@ -169,6 +170,21 @@ func TestLink(t *testing.T) {
 		v = l.GetLen()
 		if v != 7 {
 			t.Fatalf("Splice error expect length 7 but %d", v)
+		}
+		itf := l.Shift()
+		if _, ok := itf.(int); !ok {
+			t.Fatalf("Splice error exect type int, but %v.", reflect.TypeOf(itf).Kind())
+		}
+		if val, _ := itf.(int); val != 7 {
+			t.Fatalf("Splice error exect value 7, but %d.", val)
+		}
+
+		var i int32
+		for i = 1; i < l.GetLen(); i++ {
+			// fmt.Println(l.GetValue(i - 1))
+			if val, _ := l.GetValue(i - 1).(int32); val != i {
+				t.Fatalf("Splice error expect value %d, but %d.", i, l.GetValue(i-1))
+			}
 		}
 	})
 }

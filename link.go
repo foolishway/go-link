@@ -119,22 +119,14 @@ func (l *Link) Splice(start int32, deleteCount int32, items ...interface{}) (rem
 			newLink.Push(item)
 		}
 	}
-	// fmt.Println(newLink.GetValue(0))
-	// count := start
-	// for count > 0 {
-	// 	newLink.Push(n)
-	// 	n = n.Next
-	// 	count--
-	// }
 
-	// n = l.start
-	count := start + deleteCount
-	for i = 0; i < count; i++ {
+	// count := start
+	for i = start + deleteCount; i < l.GetLen(); i++ {
 		newLink.Push(l.GetValue(int32(i)))
 	}
 
 	//get removed node and return it
-	for i = 0; i < l.GetLen()-start+deleteCount; i++ {
+	for i = start; i < start+deleteCount; i++ {
 		removed = append(removed, l.GetValue(int32(i)))
 	}
 	l.start = newLink.start
