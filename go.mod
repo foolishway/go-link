@@ -1,4 +1,4 @@
-module github.com/foolishway/link
+module github.com/foolishway/list
 
 go 1.14
 
