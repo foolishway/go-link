@@ -1,18 +1,18 @@
-package link
+package List
 
-//Link impolement Link structure in go
-type Link struct {
+//List impolement List structure in go
+type List struct {
 	start *Node
 }
 
-//Node is the node in Link structure
+//Node is the node in List structure
 type Node struct {
 	Value interface{}
 	Next  *Node
 }
 
-//Push push the node to the tail of link
-func (l *Link) Push(value interface{}) {
+//Push push the node to the tail of List
+func (l *List) Push(value interface{}) {
 	node := &Node{Value: value}
 	if l.start == nil {
 		l.start = node
@@ -25,8 +25,8 @@ func (l *Link) Push(value interface{}) {
 	}
 }
 
-//Pop remove the last node of link and return it
-func (l *Link) Pop() interface{} {
+//Pop remove the last node of List and return it
+func (l *List) Pop() interface{} {
 	n := l.start
 	if n == nil {
 		return nil
@@ -46,8 +46,8 @@ func (l *Link) Pop() interface{} {
 	return temNode.Value
 }
 
-//Shift remove the first node of link and return it
-func (l *Link) Shift() interface{} {
+//Shift remove the first node of List and return it
+func (l *List) Shift() interface{} {
 	if l.start == nil {
 		return nil
 	}
@@ -59,8 +59,8 @@ func (l *Link) Shift() interface{} {
 	return temNode.Value
 }
 
-//GetLen return the length of link
-func (l *Link) GetLen() int32 {
+//GetLen return the length of List
+func (l *List) GetLen() int32 {
 	var length int32
 	n := l.start
 	for n != nil {
@@ -70,8 +70,8 @@ func (l *Link) GetLen() int32 {
 	return length
 }
 
-//Clear clear the node of link and return the length
-func (l *Link) Clear() int32 {
+//Clear clear the node of List and return the length
+func (l *List) Clear() int32 {
 	length := l.GetLen()
 
 	l.start = nil
@@ -79,8 +79,8 @@ func (l *Link) Clear() int32 {
 	return length
 }
 
-//GetValue return the value of link at indexTh
-func (l *Link) GetValue(index int32) interface{} {
+//GetValue return the value of List at indexTh
+func (l *List) GetValue(index int32) interface{} {
 	if index >= l.GetLen() {
 		return nil
 	}
@@ -94,8 +94,8 @@ func (l *Link) GetValue(index int32) interface{} {
 	return n.Value
 }
 
-//Splice delete or replace node of link
-func (l *Link) Splice(start int32, deleteCount int32, items ...interface{}) (removed []interface{}) {
+//Splice delete or replace node of List
+func (l *List) Splice(start int32, deleteCount int32, items ...interface{}) (removed []interface{}) {
 	if l.GetLen() <= start {
 		if len(items) > 0 {
 			for _, item := range items {
@@ -105,30 +105,30 @@ func (l *Link) Splice(start int32, deleteCount int32, items ...interface{}) (rem
 		return nil
 	}
 
-	newLink := &Link{}
+	newList := &List{}
 
 	n := start
 	var i int32
 
 	for i = 0; i < n; i++ {
-		newLink.Push(l.GetValue(int32(i)))
+		newList.Push(l.GetValue(int32(i)))
 	}
 
 	if len(items) > 0 {
 		for _, item := range items {
-			newLink.Push(item)
+			newList.Push(item)
 		}
 	}
 
 	// count := start
 	for i = start + deleteCount; i < l.GetLen(); i++ {
-		newLink.Push(l.GetValue(int32(i)))
+		newList.Push(l.GetValue(int32(i)))
 	}
 
 	//get removed node and return it
 	for i = start; i < start+deleteCount; i++ {
 		removed = append(removed, l.GetValue(int32(i)))
 	}
-	l.start = newLink.start
+	l.start = newList.start
 	return
 }

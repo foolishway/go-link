@@ -1,4 +1,4 @@
-package link
+package List
 
 import (
 	"log"
@@ -7,10 +7,10 @@ import (
 	"testing"
 )
 
-func TestLink(t *testing.T) {
+func TestList(t *testing.T) {
 	//test Push
 	t.Run("testPush", func(t *testing.T) {
-		var l *Link = &Link{}
+		var l *List = &List{}
 		l.Push("1")
 		if Value, ok := l.start.Value.(string); !ok {
 			t.Fatal("Type error, want string but not.")
@@ -36,7 +36,7 @@ func TestLink(t *testing.T) {
 
 	//test pop
 	t.Run("testPop", func(t *testing.T) {
-		var l *Link = &Link{}
+		var l *List = &List{}
 		l.Push(1)
 		l.Push(true)
 		l.Push(3)
@@ -75,7 +75,7 @@ func TestLink(t *testing.T) {
 
 	//test shift
 	t.Run("testShift", func(t *testing.T) {
-		var l *Link = &Link{}
+		var l *List = &List{}
 		l.Push(1)
 		l.Push(true)
 		l.Push(3)
@@ -112,7 +112,7 @@ func TestLink(t *testing.T) {
 
 	//test getLen
 	t.Run("testGetLen", func(t *testing.T) {
-		var l *Link = &Link{}
+		var l *List = &List{}
 		for i := 1; i <= 100; i++ {
 			l.Push(i)
 			if l.GetLen() != int32(i) {
@@ -123,7 +123,7 @@ func TestLink(t *testing.T) {
 
 	//test clear
 	t.Run("testClear", func(t *testing.T) {
-		var l *Link = &Link{}
+		var l *List = &List{}
 		for i := 1; i <= 100; i++ {
 			l.Push(i)
 		}
@@ -140,7 +140,7 @@ func TestLink(t *testing.T) {
 
 	//test getValue
 	t.Run("testGetValue", func(t *testing.T) {
-		var l *Link = &Link{}
+		var l *List = &List{}
 		for i := 0; i < 100; i++ {
 			l.Push(i)
 		}
@@ -156,7 +156,7 @@ func TestLink(t *testing.T) {
 
 	//test splice
 	t.Run("testSplice", func(t *testing.T) {
-		l := &Link{}
+		l := &List{}
 		l.Push(1)
 		l.Push(2)
 		l.Push(3)
@@ -182,7 +182,7 @@ func TestLink(t *testing.T) {
 		var i int32
 		for i = 1; i < l.GetLen(); i++ {
 			// fmt.Println(l.GetValue(i - 1))
-			if val, _ := l.GetValue(i - 1).(int32); val != i {
+			if val, _ := l.GetValue(i - 1).(int); int32(val) != i {
 				t.Fatalf("Splice error expect value %d, but %d.", i, l.GetValue(i-1))
 			}
 		}
