@@ -102,7 +102,15 @@ func (l *List) Splice(start int32, deleteCount int32, items ...interface{}) (rem
 				l.Push(item)
 			}
 		}
-		return nil
+		return
+	}
+
+	if start < 0 {
+		start = l.GetLen() + start
+	}
+
+	if start < 0 {
+		panic("Start is too small.")
 	}
 
 	newList := &List{}

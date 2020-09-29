@@ -186,5 +186,30 @@ func TestList(t *testing.T) {
 				t.Fatalf("Splice error expect value %d, but %d.", i, l.GetValue(i-1))
 			}
 		}
+		// [1, 2, 3, 4, 5, 6]
+		r := l.Splice(1, 1, 7, 8)
+		len := l.GetLen()
+		if !reflect.DeepEqual(r, []interface{}{2}) {
+			t.Fatalf("Splice error expect %v but %v", []interface{}{2}, r)
+		}
+		// for l.GetLen() > 0 {
+		// 	fmt.Println(l.Shift())
+		// }
+		if len != 7 {
+			t.Fatalf("Splice error, len expect 7 but %d", len)
+		}
+
+		l.Splice(-1, 0, 0)
+
+		if val, _ := l.GetValue(6).(int); val != 0 {
+			t.Fatalf("Splice error, 1th expect 0, but %d.", val)
+		}
+		// for l.GetLen() > 0 {
+		// 	fmt.Println(l.Shift())
+		// }
+		if len := l.GetLen(); len != 8 {
+			t.Fatalf("Splice error, len expect 8 but %d", len)
+		}
 	})
+
 }
